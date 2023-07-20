@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import styled from "styled-components";
 const IMGPATH = "https://image.tmdb.org/t/p/w1280";
 
@@ -57,16 +57,19 @@ const Close = styled.span`
   cursor: pointer;
   opacity: 0.8;
 `;
+
 const MovieInfoComponent = (props) => {
   const movieInfo = props.movie;
+  const releaseDate = new Date(movieInfo?.release_date)
+  const year = releaseDate.getFullYear();
   return (
     <Container>
       {movieInfo ? (
         <>
-          <CoverImage src={IMGPATH + movieInfo?.poster_path} alt={movieInfo?.original_title} />
+          <CoverImage src={IMGPATH + movieInfo?.poster_path} alt={movieInfo?.original_title + (year)} />
           <InfoColumn>
             <MovieName>
-             <span>{movieInfo?.title}</span>
+              <span>{movieInfo?.title + '(' + (year) + ')'}</span>
             </MovieName>
             <MovieInfo>
               Language: <span>{movieInfo?.original_language}</span>
@@ -81,7 +84,7 @@ const MovieInfoComponent = (props) => {
               Released Date: <span>{movieInfo?.release_date}</span>
             </MovieInfo>
             <MovieInfo>
-            overview: <span>{movieInfo?.overview}</span>
+              overview: <span>{movieInfo?.overview}</span>
             </MovieInfo>
           </InfoColumn>
           <Close onClick={() => props.onMovieSelect()}>X</Close>
@@ -91,21 +94,5 @@ const MovieInfoComponent = (props) => {
       )}
     </Container>
   );
-
-  // return (
-  //   <Container
-  //     onClick={() => {
-  //       props.onMovieSelect(id);
-  //       window.scrollTo({ top: 0, behavior: "smooth" });
-  //     }}
-  //   >
-  //     <CoverImage src={IMGPATH + backdrop_path} alt={original_title} />
-  //     <MovieName>Title  :{original_title}</MovieName>
-  //     <InfoColumn>
-  //       <MovieInfo>Year : {release_date}</MovieInfo>
-  //       <MovieInfo>Rating : {vote_average}</MovieInfo>
-  //     </InfoColumn>
-  //   </Container>
-  // );
 };
 export default MovieInfoComponent;
