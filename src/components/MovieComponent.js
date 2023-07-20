@@ -37,8 +37,9 @@ const MovieInfo = styled.span`
   text-overflow: ellipsis;
 `;
 const MovieComponent = (props) => {
-  const { original_title, release_date, id, vote_average , backdrop_path } = props.movie;
-
+  const { original_title, release_date, id, vote_average, backdrop_path } = props.movie;
+  const releaseDate = new Date(release_date)
+  const year = releaseDate.getFullYear();
   return (
     <MovieContainer
       onClick={() => {
@@ -49,7 +50,7 @@ const MovieComponent = (props) => {
       <CoverImage src={IMGPATH + backdrop_path} alt={original_title} />
       <MovieName>{original_title}</MovieName>
       <InfoColumn>
-        <MovieInfo>Year : {release_date}</MovieInfo>
+        <MovieInfo>Year : {year}</MovieInfo>
         <MovieInfo>Rating : {vote_average}</MovieInfo>
       </InfoColumn>
     </MovieContainer>
